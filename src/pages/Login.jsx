@@ -32,7 +32,7 @@ const Login = () => {
 
     try {
       const response = await axios.post(
-        'http://localhost:8000/api/login/',
+        'nabin.pythonanywhere.com/api/login/',
         {
           username: formData.username,
           password: formData.password,

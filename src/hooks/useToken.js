@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import axios from "axios";
+import axios from "../api/axios";
 
 const getCookie = (name) => {
   const value = `; ${document.cookie}`;
@@ -14,7 +14,7 @@ const useToken = () => {
   useEffect(() => {
     const fetchToken = async () => {
       try {
-        await axios.get('nabin.pythonanywhere.com/api/csrf/', {
+        await axios.get('/api/csrf/', {
           withCredentials: true,
         });
         const csrfToken = getCookie('csrftoken');

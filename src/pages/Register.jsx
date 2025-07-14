@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { IconButton } from "@material-tailwind/react";
 import { Link, useNavigate } from 'react-router-dom';
-import axios from 'axios';
+import axios from '../api/axios';
 import useToken from "../hooks/useToken"
 
 
@@ -31,7 +31,7 @@ const Register = () => {
     }
 
     try {
-      const response = await axios.post('nabin.pythonanywhere.com/api/register/', {
+      const response = await axios.post('/api/register/', {
         username: formData.username,
         email: formData.email,
         password: formData.password,

@@ -14,7 +14,7 @@ const useToken = () => {
   useEffect(() => {
     const fetchToken = async () => {
       try {
-        await axios.get('http://localhost:8000/api/csrf/', {
+        await axios.get('nabin.pythonanywhere.com/api/csrf/', {
           withCredentials: true,
         });
         const csrfToken = getCookie('csrftoken');

@@ -24,12 +24,14 @@ console.log(token);
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
-
+ if (!token) {
+    setError('CSRF token not ready. Please wait a moment and try again.');
+    return;  
+  }
     if (formData.password !== formData.confirm_password) {
       setError("Passwords do not match");
       return;
     }
-
     try {
       const response = await axios.post('/api/register/', {
         username: formData.username,

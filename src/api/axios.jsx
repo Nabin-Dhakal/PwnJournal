@@ -4,5 +4,5 @@ const BASE_URL = import.meta.env.VITE_API_BASE_URL || 'https://nabin.pythonanywh
 
 export default axios.create({
   baseURL: BASE_URL,
-  withCredentials: false,
+  withCredentials: true,
 });

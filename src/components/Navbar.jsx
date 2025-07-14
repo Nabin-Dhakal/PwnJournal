@@ -1,7 +1,7 @@
 import { IconButton } from '@material-tailwind/react';
 import { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import axios from 'axios';
+import axios from '../api/axios';
 import useToken from "../hooks/useToken"
 
 
@@ -11,7 +11,7 @@ function Navbar() {
   const [token] = useToken();
   
   useEffect(() => {
-    axios.get('nabin.pythonanywhere.com/api/user/', { withCredentials: true })
+    axios.get('/api/user/', { withCredentials: true })
       .then(res => {
         setUser(res.data);  
       })
@@ -21,7 +21,7 @@ function Navbar() {
   }, []);
 
   const handleLogout = () => {
-    axios.post('nabin.pythonanywhere.com/api/logout/',{}, { withCredentials: true,
+    axios.post('/api/logout/',{}, { withCredentials: true,
       headers:{
             'X-CSRFToken':token,
           } })

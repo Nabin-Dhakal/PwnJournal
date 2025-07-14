@@ -11,7 +11,7 @@ function Navbar() {
   const [token] = useToken();
   
   useEffect(() => {
-    axios.get('http://localhost:8000/api/user/', { withCredentials: true })
+    axios.get('nabin.pythonanywhere.com/api/user/', { withCredentials: true })
       .then(res => {
         setUser(res.data);  
       })
@@ -21,7 +21,7 @@ function Navbar() {
   }, []);
 
   const handleLogout = () => {
-    axios.post('http://localhost:8000/api/logout/',{}, { withCredentials: true,
+    axios.post('nabin.pythonanywhere.com/api/logout/',{}, { withCredentials: true,
       headers:{
             'X-CSRFToken':token,
           } })

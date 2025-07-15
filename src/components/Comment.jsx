@@ -12,7 +12,7 @@ const Comment = ({ onClose }) => {
   const [formData, setFormData] = useState({
     content: '',
   });
-    const [token] = useToken();
+   const [token, loading, error] = useToken();
 
 
   const fetchComments = async () => {

@@ -8,10 +8,10 @@ import useToken from "../hooks/useToken"
 function Navbar() {
   const [user, setUser] = useState(null);
   const navigate = useNavigate();
-  const [token] = useToken();
+  const [token,tokenloading, tokenerror] = useToken();
   
   useEffect(() => {
-    axios.get('/api/user/', { withCredentials: true })
+    axios.get('/user/', { withCredentials: true })
       .then(res => {
         setUser(res.data);  
       })
@@ -21,7 +21,7 @@ function Navbar() {
   }, []);
 
   const handleLogout = () => {
-    axios.post('/api/logout/',{}, { withCredentials: true,
+    axios.post('/logout/',{}, { withCredentials: true,
       headers:{
             'X-CSRFToken':token,
           } })

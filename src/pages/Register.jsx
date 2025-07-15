@@ -34,7 +34,7 @@ console.log(token);
     }
     if (tokenerror) return <p>Error loading CSRF token. Please try again.</p>;
     try {
-      const response = await axios.post('/api/register/', {
+      const response = await axios.post('/register/', {
         username: formData.username,
         email: formData.email,
         password: formData.password,

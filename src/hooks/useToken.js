@@ -16,7 +16,7 @@ const useToken = () => {
   useEffect(() => {
     const fetchToken = async () => {
       try {
-        await axios.get('/api/csrf/', {
+        await axios.get('/csrf/', {
           withCredentials: true,
         });
         const csrfToken = getCookie('csrftoken');

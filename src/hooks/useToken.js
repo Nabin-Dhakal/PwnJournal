@@ -23,10 +23,11 @@ const useToken = () => {
         await axios.get('/csrf/', {
           withCredentials: true,
         });
-
+      
         setTimeout(() => {
         const csrfToken = getCookie('csrftoken');
         setToken(csrfToken);
+          console.log(token);
       } catch (err) {
         console.error("Failed to fetch CSRF token:", err);
         setTokenerror(err);

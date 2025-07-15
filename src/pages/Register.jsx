@@ -16,7 +16,6 @@ const Register = () => {
   const navigate = useNavigate();
   const [token, tokenloading, tokenerror] = useToken();
 
-console.log(token);
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.id]: e.target.value });
   };

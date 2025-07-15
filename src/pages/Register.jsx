@@ -109,7 +109,7 @@ console.log(token);
         <button
           type="submit"
           className="w-full bg-[#F4FF21] text-black py-2 rounded"
-        >
+           disabled ={!token} >
           Create Account
         </button>
         <p>Already have a account?&nbsp; <Link to="/login" className="text-yellow-300">Sign in</Link></p>

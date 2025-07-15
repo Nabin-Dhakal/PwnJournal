@@ -13,7 +13,7 @@ const Profile = () => {
     confirm_password: "",
   });
   
-  const [token] = useToken();
+  const [token, loading, error] = useToken();
 
   const [loading, setLoading] = useState(false);
 
@@ -78,6 +78,7 @@ const Profile = () => {
       </div>
     );
   }
+  if (error) return <p>Error loading CSRF token. Please try again.</p>;
 
   return (
     <>

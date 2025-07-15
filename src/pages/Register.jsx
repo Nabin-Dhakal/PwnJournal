@@ -14,7 +14,7 @@ const Register = () => {
   });
   const [error, setError] = useState('');
   const navigate = useNavigate();
-  const [token, loading, error] = useToken();
+  const [token, tokenloading, tokenerror] = useToken();
 
 console.log(token);
   const handleChange = (e) => {
@@ -32,7 +32,7 @@ console.log(token);
       setError("Passwords do not match");
       return;
     }
-    if (error) return <p>Error loading CSRF token. Please try again.</p>;
+    if (tokenerror) return <p>Error loading CSRF token. Please try again.</p>;
     try {
       const response = await axios.post('/api/register/', {
         username: formData.username,

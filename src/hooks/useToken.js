@@ -10,8 +10,8 @@ const getCookie = (name) => {
 
 const useToken = () => {
   const [token, setToken] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const [tokenloading, setTokenloading] = useState(true);
+  const [tokenerror, setTokenerror] = useState(null);
 
   useEffect(() => {
     const fetchToken = async () => {
@@ -23,9 +23,9 @@ const useToken = () => {
         setToken(csrfToken);
       } catch (err) {
         console.error("Failed to fetch CSRF token:", err);
-        setError(err);
+        setTOkenerror(err);
       } finally {
-        setLoading(false);
+        setTOkenloading(false);
       }
     };
 

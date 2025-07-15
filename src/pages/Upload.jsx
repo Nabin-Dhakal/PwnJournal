@@ -16,7 +16,7 @@ const UploadForm = () => {
 
   const [error, setError] = useState('');
   const navigate = useNavigate();
-    const [token] = useToken();
+  const [token, loading, error] = useToken();
 
 
   const handleChange = (e) => {

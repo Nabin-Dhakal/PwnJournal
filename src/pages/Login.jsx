@@ -12,7 +12,7 @@ const Login = () => {
 
   const [error, setError] = useState('');
   const navigate = useNavigate();
-  const [token, loading, error] = useToken();
+  const [token, tokenloading, tokenerror] = useToken();
 
   const handleChange = (e) => {
     setFormData({
@@ -29,7 +29,7 @@ const Login = () => {
       setError('CSRF token not loaded yet. Please wait and try again.');
       return;
     }
-    if (error) return <p>Error loading CSRF token. Please try again.</p>;
+    if (tokenerror) return <p>Error loading CSRF token. Please try again.</p>;
 
     try {
       const response = await axios.post(

@@ -23,9 +23,9 @@ const useToken = () => {
         setToken(csrfToken);
       } catch (err) {
         console.error("Failed to fetch CSRF token:", err);
-        setTOkenerror(err);
+        setTokenerror(err);
       } finally {
-        setTOkenloading(false);
+        setTokenloading(false);
       }
     };
 

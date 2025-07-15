@@ -23,6 +23,8 @@ const useToken = () => {
         await axios.get('/csrf/', {
           withCredentials: true,
         });
+
+        setTimeout(() => {
         const csrfToken = getCookie('csrftoken');
         setToken(csrfToken);
       } catch (err) {
@@ -30,7 +32,7 @@ const useToken = () => {
         setTokenerror(err);
       } finally {
         setTokenloading(false);
-      }
+      }},500);
     };
 
     fetchToken();

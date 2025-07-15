@@ -32,7 +32,7 @@ const useToken = () => {
     fetchToken();
   }, []);
 
-  return [token, loading, error];
+  return [token, tokenloading, tokenerror];
 };
 
 export default useToken;

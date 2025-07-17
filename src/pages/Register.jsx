@@ -2,8 +2,7 @@ import { useState } from "react";
 import { IconButton } from "@material-tailwind/react";
 import { Link, useNavigate } from 'react-router-dom';
 import axios from '../api/axios';
-import useToken from "../hooks/useToken"
-
+import useToken from "../hooks/useToken";
 
 const Register = () => {
   const [formData, setFormData] = useState({
@@ -14,7 +13,9 @@ const Register = () => {
   });
   const [error, setError] = useState('');
   const navigate = useNavigate();
-  const [token, tokenloading, tokenerror] = useToken();
+
+  // token is the CSRF token string (or null), tokenloading tells if still fetching, tokenerror is fetch error
+  const [token, tokenLoading, tokenError] = useToken();
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.id]: e.target.value });
@@ -23,30 +24,35 @@ const Register = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
- if (!token) {
-    setError('CSRF token not ready. Please wait a moment and try again.');
-    return;  
-  }
+
+    // If token loading or error, block submit
+    if (tokenLoading) {
+      setError('CSRF token not ready. Please wait a moment and try again.');
+      return;
+    }
+
+    if (tokenError) {
+      setError('Error loading CSRF token. Please refresh and try again.');
+      return;
+    }
+
     if (formData.password !== formData.confirm_password) {
       setError("Passwords do not match");
       return;
     }
-    if (tokenerror) return <p>Error loading CSRF token. Please try again.</p>;
+
     try {
+      // No need to manually add CSRF header here; axios instance handles it automatically
       const response = await axios.post('/register/', {
         username: formData.username,
         email: formData.email,
         password: formData.password,
         confirm_password: formData.confirm_password,
-      },
-       { withCredentials: true,
-        headers:{
-            'X-CSRFToken':token,
-          }
-       });
+      }, { withCredentials: true });
 
       console.log('Registration success:', response.data);
       navigate('/login'); 
+
     } catch (err) {
       console.error(err.response?.data || err.message);
       setError(err.response?.data?.error || 'Registration failed');
@@ -71,6 +77,7 @@ const Register = () => {
             required
           />
         </div>
+
         <div className="mb-4">
           <input
             type="email"
@@ -82,6 +89,7 @@ const Register = () => {
             required
           />
         </div>
+
         <div className="mb-4">
           <input
             type="password"
@@ -93,6 +101,7 @@ const Register = () => {
             required
           />
         </div>
+
         <div className="mb-6">
           <input
             type="password"
@@ -108,13 +117,18 @@ const Register = () => {
         <button
           type="submit"
           className="w-full bg-[#F4FF21] text-black py-2 rounded"
-           disabled ={!token} >
+          disabled={tokenLoading || !!tokenError}
+        >
           Create Account
         </button>
-        <p>Already have a account?&nbsp; <Link to="/login" className="text-yellow-300">Sign in</Link></p>
+
+        <p>
+          Already have an account?&nbsp;
+          <Link to="/login" className="text-yellow-300">Sign in</Link>
+        </p>
 
         <button
-        disabled
+          disabled
           type="button"
           className="w-full gap-3 bg-[#D9D9D9] bg-opacity-10 text-white my-5 py-2 rounded flex items-center justify-center"
         >

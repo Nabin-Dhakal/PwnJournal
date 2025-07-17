@@ -14,32 +14,43 @@ const getCookie = (name) => {
 
 const useToken = () => {
   const [token, setToken] = useState(null);
-  const [tokenloading, setTokenloading] = useState(true);
-  const [tokenerror, setTokenerror] = useState(null);
+  const [tokenLoading, setTokenLoading] = useState(true);
+  const [tokenError, setTokenError] = useState(null);
 
   useEffect(() => {
     const fetchToken = async () => {
       try {
+        // Request to backend to set the CSRF cookie
         await axios.get('/csrf/', {
           withCredentials: true,
         });
-      
+
+        // Wait a moment to allow the cookie to be set
         setTimeout(() => {
-        const csrfToken = getCookie('csrftoken');
-        setToken(csrfToken);
-          console.log(token);
+          const csrfToken = getCookie('csrftoken');
+          if (!csrfToken) {
+            throw new Error("CSRF token not found in cookies.");
+          }
+
+          setToken(csrfToken);
+          console.log("CSRF token fetched:", csrfToken); // Log the token directly
+        }, 100); // Use a short timeout if needed (optional)
       } catch (err) {
         console.error("Failed to fetch CSRF token:", err);
-        setTokenerror(err);
+        setTokenError(err);
+        setTokenLoading(false); // In case of immediate error
       } finally {
-        setTokenloading(false);
-      }},500);
+        // Move loading flag into the timeout block
+        setTimeout(() => {
+          setTokenLoading(false);
+        }, 100);
+      }
     };
 
     fetchToken();
   }, []);
 
-  return [token, tokenloading, tokenerror];
+  return [token, tokenLoading, tokenError];
 };
 
 export default useToken;
